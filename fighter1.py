@@ -67,7 +67,7 @@ class Fighter():
         if key[pygame.K_SPACE]:
           self.attack(target)
           #determine which attack type was used
-          if key[pygame.K_r]:
+          if key[pygame.K_SPACE]:
             self.attack_type = 1
           '''if key[pygame.K_t]:
             self.attack_type = 2'''
