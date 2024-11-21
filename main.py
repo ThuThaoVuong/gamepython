@@ -138,7 +138,7 @@ while run:
         for id, lm in enumerate(firstHand.landmark):
           rx, ry = int(lm.x * w), int(lm.y * h)
           handlms.append([id, rx, ry])
-        if handlms[4][1] > handlms[3][1]:
+        if handlms[12][2] > handlms[10][2]:
           kb.press(Key.up)
           a = Key.up
         elif handlms[8][2] > handlms[6][2]:
