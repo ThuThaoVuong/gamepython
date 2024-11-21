@@ -2,8 +2,14 @@ import cv2
 import pygame
 from pygame import mixer
 from fighter1 import Fighter
-from hand import handDetector
 
+import mediapipe as mp
+from pynput.keyboard import Key,Controller
+mp_drawing = mp.solutions.drawing_utils
+mp_drawing_styles = mp.solutions.drawing_styles
+mp_hands = mp.solutions.hands
+kb=Controller()
+cap = cv2.VideoCapture(0)
 
 mixer.init()
 pygame.init()
@@ -93,6 +99,8 @@ fighter_2 = Fighter(2, 700, 310, True, WIZARD_DATA, wizard_sheet, WIZARD_ANIMATI
 #game loop
 run = True
 cam=cv2.VideoCapture(0)
+prev_time=0
+a=''
 while run:
 
   clock.tick(FPS)
@@ -109,11 +117,43 @@ while run:
   #update countdown
   if intro_count <= 0:
     #move fighters
-    a=handDetector()
-    ret,frame=cam.read()
-    a.findHands(frame)
+    with (mp_hands.Hands(
+            model_complexity=0,
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5) as hands):
+      success, image = cap.read()
+      image.flags.writeable = False
+      image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+      results = hands.process(image)
+      image.flags.writeable = True
+      image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+      if results.multi_hand_landmarks:
+        if a != '':
+          kb.release(a)
+          a = ''
+        handlms = []
+        firstHand = results.multi_hand_landmarks[0]
+        h, w, _ = image.shape
+        for id, lm in enumerate(firstHand.landmark):
+          rx, ry = int(lm.x * w), int(lm.y * h)
+          handlms.append([id, rx, ry])
+        if handlms[4][1] > handlms[3][1]:
+          kb.press(Key.up)
+          a = Key.up
+        elif handlms[8][2] > handlms[6][2]:
+          kb.press(Key.left)
+          a = Key.left
+        elif handlms[20][2] > handlms[18][2]:
+          kb.press(Key.right)
+          a = Key.right
+        else:
+          kb.press(Key.space)
+          a = Key.space
+        print(a)
     fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2, round_over)
     fighter_2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_1, round_over)
+
   else:
     #display count timer
     draw_text(str(intro_count), count_font, RED, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3)
