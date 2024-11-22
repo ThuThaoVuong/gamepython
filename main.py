@@ -56,11 +56,11 @@ WARRIOR_ANIMATION_STEPS = [10, 8, 1, 7, 7, 3, 7]
 WIZARD_ANIMATION_STEPS = [8, 8, 1, 8, 8, 3, 7]
 
 # Load sounds
-'''pygame.mixer.music.load("assets/audio/music.mp3")
+pygame.mixer.music.load("assets/audio/music.mp3")
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1, 0.0, 5000)
 sword_fx = pygame.mixer.Sound("assets/audio/sword.wav")
-magic_fx = pygame.mixer.Sound("assets/audio/magic.wav")'''
+magic_fx = pygame.mixer.Sound("assets/audio/magic.wav")
 
 # Functions
 def draw_bg():
@@ -117,8 +117,8 @@ def process_hands():
 
 
 # Create fighters
-fighter_1 = Fighter(1, 200, 310, False, WARRIOR_DATA, warrior_sheet, WARRIOR_ANIMATION_STEPS)
-fighter_2 = Fighter(2, 700, 310, True, WIZARD_DATA, wizard_sheet, WIZARD_ANIMATION_STEPS)
+fighter_1 = Fighter(1, 200, 310, False, WARRIOR_DATA, warrior_sheet, WARRIOR_ANIMATION_STEPS,sword_fx)
+fighter_2 = Fighter(2, 700, 310, True, WIZARD_DATA, wizard_sheet, WIZARD_ANIMATION_STEPS,magic_fx)
 
 # Game loop
 run = True
