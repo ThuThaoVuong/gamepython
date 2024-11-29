@@ -122,15 +122,15 @@ def process_hands():
         cv2.putText(frame, 'P1:Jump', (5, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
 
     if n2_finger not in [0,1,2,5]:
-        cv2.putText(frame, 'P2:None', (150, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
+        cv2.putText(frame, 'P2:None', (160, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
     elif n2_finger == 0:
-        cv2.putText(frame, 'P2:Attack', (150, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
+        cv2.putText(frame, 'P2:Attack', (160, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
     elif n2_finger == 1:
-        cv2.putText(frame, 'P2:Left', (150, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
+        cv2.putText(frame, 'P2:Left', (160, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
     elif n2_finger == 2:
-        cv2.putText(frame, 'P2:Right', (150, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
+        cv2.putText(frame, 'P2:Right', (160, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
     elif n2_finger == 5:
-        cv2.putText(frame, 'P2:Jump', (150, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
+        cv2.putText(frame, 'P2:Jump', (160, 35), cv2.FONT_HERSHEY_PLAIN, 2, RED, 2)
 
     cv2.imshow("Hand Tracking", frame)
     cv2.waitKey(1)
